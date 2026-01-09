@@ -76,7 +76,7 @@ export const QwikifiedStormtrooper = qwikify$(
         <Canvas
           camera={{
             fov: 25,
-            position: [15, 10, -15],
+            position: [30, 20, -30],
             near: 1,
             far: 1000,
           }}
@@ -84,8 +84,7 @@ export const QwikifiedStormtrooper = qwikify$(
         >
           <OrbitControls
             screenSpacePanning={true}
-            minDistance={5}
-            maxDistance={40}
+            enableZoom={false}
             target={[0, 2, 0]}
           />
           <StormtrooperScene />

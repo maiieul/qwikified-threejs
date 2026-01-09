@@ -1,16 +1,14 @@
 import { component$, useSignal, useVisibleTask$ } from "@qwik.dev/core";
 
-export default component$(() => {
+export const Qwikified = component$(() => {
   const loaded = useSignal(false);
   const Component = useSignal<any>(null);
 
   useVisibleTask$(() => {
-    import("~/components/qwikified-stormtrooper/qwikified-stormtrooper").then(
-      (mod) => {
-        Component.value = mod.QwikifiedStormtrooper;
-        loaded.value = true;
-      }
-    );
+    import("./qwikified-globe").then((mod) => {
+      Component.value = mod.QwikifiedGlobe;
+      loaded.value = true;
+    });
   });
 
   if (!loaded.value || !Component.value) {

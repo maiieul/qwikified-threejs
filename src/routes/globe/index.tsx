@@ -1,16 +1,16 @@
 import { component$, useSignal, useVisibleTask$ } from "@qwik.dev/core";
 
-// Qwik wrapper that dynamically loads the React component only on client
-export const Qwikified = component$(() => {
+export default component$(() => {
   const loaded = useSignal(false);
   const Component = useSignal<any>(null);
 
   useVisibleTask$(() => {
-    // Only run on client - dynamically import the React component
-    import("./qwikified-stormtrooper").then((mod) => {
-      Component.value = mod.QwikifiedStormtrooper;
-      loaded.value = true;
-    });
+    import("~/components/qwikified-globe/qwikified-globe-hollow").then(
+      (mod) => {
+        Component.value = mod.QwikifiedGlobe;
+        loaded.value = true;
+      }
+    );
   });
 
   if (!loaded.value || !Component.value) {
