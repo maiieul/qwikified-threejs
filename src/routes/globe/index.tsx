@@ -1,22 +1,13 @@
-import { component$, useSignal, useVisibleTask$ } from "@qwik.dev/core";
+import { component$ } from "@qwik.dev/core";
+import AllUiComponents from "~/components/all-ui-components/all-ui-components";
+import OnVisibleQwikifiedGlobe from "~/components/qwikified-globe/on-visible-qwikified-globe";
 
 export default component$(() => {
-  const loaded = useSignal(false);
-  const Component = useSignal<any>(null);
-
-  useVisibleTask$(() => {
-    import("~/components/qwikified-globe/qwikified-globe-hollow").then(
-      (mod) => {
-        Component.value = mod.QwikifiedGlobe;
-        loaded.value = true;
-      }
-    );
-  });
-
-  if (!loaded.value || !Component.value) {
-    return <div>Loading 3D scene...</div>;
-  }
-
-  const ReactComponent = Component.value;
-  return <ReactComponent />;
+  return (
+    <>
+      <AllUiComponents />
+      <div style={{ height: "100vh", width: "100vw" }} />
+      <OnVisibleQwikifiedGlobe />
+    </>
+  );
 });

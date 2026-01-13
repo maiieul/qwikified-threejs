@@ -41,7 +41,7 @@ const GlobeViz = () => {
 export const QwikifiedGlobe = qwikify$(
   () => {
     return (
-      <div style={{ height: window.innerHeight }}>
+      <div style={{ height: "100vh", width: "100vw" }}>
         <Canvas
           flat
           camera={useMemo(() => ({ fov: 50, position: [0, 0, 350] }), [])}

@@ -1,0 +1,35 @@
+import { Pagination } from "@qds.dev/ui";
+import { component$, useSignal } from "@qwik.dev/core";
+
+export default component$(() => {
+  const selectedPageSig = useSignal(1);
+  const totalPagesSig = useSignal(10);
+  const paginationItems = Array.from(
+    { length: totalPagesSig.value },
+    (_, index) => index + 1
+  );
+
+  return (
+    <Pagination.Root
+      class="pagination-root"
+      totalPages={totalPagesSig.value}
+      currentPage={selectedPageSig.value}
+      pages={paginationItems}
+      siblingCount={totalPagesSig.value}
+      ellipsis="..."
+    >
+      <Pagination.Previous class="pagination-previous">
+        Prev
+      </Pagination.Previous>
+      {paginationItems.map((item, index) => {
+        const uniqueKey = `page-${index}-${Date.now()}`;
+        return (
+          <Pagination.Item class="pagination-item" key={uniqueKey}>
+            <span>{item}</span>
+          </Pagination.Item>
+        );
+      })}
+      <Pagination.Next class="pagination-next">Next</Pagination.Next>
+    </Pagination.Root>
+  );
+});

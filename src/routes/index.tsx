@@ -1,22 +1,13 @@
-import { component$, useSignal, useVisibleTask$ } from "@qwik.dev/core";
+import { component$ } from "@qwik.dev/core";
+import AllUiComponents from "~/components/all-ui-components/all-ui-components";
+import { QwikifiedStormtrooper } from "~/components/qwikified-stormtrooper/qwikified-stormtrooper";
 
 export default component$(() => {
-  const loaded = useSignal(false);
-  const Component = useSignal<any>(null);
-
-  useVisibleTask$(() => {
-    import("~/components/qwikified-stormtrooper/qwikified-stormtrooper").then(
-      (mod) => {
-        Component.value = mod.QwikifiedStormtrooper;
-        loaded.value = true;
-      }
-    );
-  });
-
-  if (!loaded.value || !Component.value) {
-    return <div>Loading 3D scene...</div>;
-  }
-
-  const ReactComponent = Component.value;
-  return <ReactComponent />;
+  return (
+    <>
+      <AllUiComponents />
+      <div style={{ height: "100vh", width: "100vw" }} />
+      <QwikifiedStormtrooper />
+    </>
+  );
 });

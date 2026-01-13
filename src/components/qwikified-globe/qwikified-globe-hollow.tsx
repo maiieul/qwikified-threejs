@@ -6,20 +6,22 @@ import { Canvas } from "@react-three/fiber";
 import R3fGlobe from "r3f-globe";
 import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-// @ts-expect-error - topojson-client is a module
-import * as topojson from "https://esm.sh/topojson-client";
+import * as topojson from "topojson-client";
+import type * as GeoJSON from "geojson";
+import type { Topology } from "topojson-specification";
 
 export const Hollow = (props: any) => {
-  const [landPolygons, setLandPolygons] = useState([]);
+  const [landPolygons, setLandPolygons] = useState<GeoJSON.Feature[]>([]);
 
   useEffect(() => {
     // load data
     fetch("//unpkg.com/world-atlas/land-110m.json")
       .then((res) => res.json())
-      .then((landTopo) => {
-        setLandPolygons(
-          topojson.feature(landTopo, landTopo.objects.land).features
-        );
+      .then((landTopo: Topology) => {
+        const result = topojson.feature(landTopo, landTopo.objects.land);
+        const features: GeoJSON.Feature[] =
+          "features" in result ? result.features : [result];
+        setLandPolygons(features);
       });
   }, []);
 
@@ -43,17 +45,17 @@ export const Hollow = (props: any) => {
   });
 };
 
-export const QwikifiedGlobe = qwikify$(
+export const QwikifiedGlobeHollow = qwikify$(
   () => {
     return (
-      <div style={{ height: window.innerHeight }}>
+      <div style={{ height: "100vh", width: "100vw" }}>
         <Canvas
           flat
           camera={useMemo(() => ({ fov: 50, position: [0, 0, 350] }), [])}
         >
           <OrbitControls
-            minDistance={101}
-            maxDistance={1e4}
+            minDistance={400}
+            maxDistance={500}
             dampingFactor={0.1}
             zoomSpeed={0.3}
             rotateSpeed={0.3}
