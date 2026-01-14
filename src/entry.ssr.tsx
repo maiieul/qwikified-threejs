@@ -14,6 +14,7 @@ export default createRenderer((opts) => {
     jsx: <Root />,
     options: {
       ...opts,
+      qwikLoader: "inline",
       // Use container attributes to set attributes on the html tag.
       containerAttributes: {
         lang: "en-us",
