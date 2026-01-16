@@ -1,52 +1,7 @@
 {
   "headers": [
     {
-      "source": "/build/(.*\\.js)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/build/(.*\\.css)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/build/(.*\\.woff2)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/build/(.*\\.woff)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.(glb|gltf|svg|png|jpg|jpeg|gif|webp|ico))",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/(.*\\.html)",
+      "source": "/(.*)?service-worker.js",
       "headers": [
         {
           "key": "Cache-Control",
@@ -55,11 +10,11 @@
       ]
     },
     {
-      "source": "/",
+      "source": "/(assets|build)/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
+          "value": "public, max-age=31536000, s-maxage=31536000, immutable"
         }
       ]
     }
