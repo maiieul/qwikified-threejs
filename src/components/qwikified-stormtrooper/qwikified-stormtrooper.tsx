@@ -92,5 +92,5 @@ export const QwikifiedStormtrooper = qwikify$(
       </div>
     );
   },
-  { eagerness: "visible" }
+  { eagerness: "idle" },
 );
