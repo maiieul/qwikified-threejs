@@ -83,20 +83,3 @@
     0 1px 0 rgba(255, 255, 255, 0.7) inset,
     0 7px 14px rgba(147, 51, 234, 0.14);
 }
-
-.jokeApp p[data-punchline] {
-  /* keep space reserved so card doesn't jump */
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid rgba(22, 157, 255, 0.22);
-  color: #041129;
-  transition:
-    opacity 160ms ease,
-    filter 160ms ease;
-}
-
-.jokeApp[data-reveal="0"] p[data-punchline] {
-  opacity: 0;
-  visibility: hidden;
-  filter: blur(3px);
-}
