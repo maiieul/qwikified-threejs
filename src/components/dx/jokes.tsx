@@ -10,19 +10,30 @@ const getJoke = async () => {
 export const useJokeLoader = routeLoader$(async () => await getJoke());
 
 export default component$(() => {
-  const initialJoke = useJokeLoader(); // fetch data without waterfalls and built-in browser caching
+  const initialJoke = useJokeLoader(); // fetch data in parallel as soon as the request reaches the server to prevent waterfalls and leverage built-in browser caching
 
   const joke = useSignal(initialJoke.value); // store data in a signal that reacts to changes
 
+  // handle side effects
   useTask$(({ track }) => {
-    track(() => joke.value);
-    console.log(joke.value.setup, "->", joke.value.punchline); // first logged server side with the initial joke and then client side every time joke.value changes
+    track(() => joke.value); // Re-run the task whenever joke.value.setup changes
+
+    // Fake analytics event payload
+    const fakeAnalayticsEvent = {
+      event: "joke_viewed",
+      userId: "123",
+      setup: joke.value.setup,
+      timestamp: Date.now(),
+    };
+
+    console.log("📊 Analytics event:", fakeAnalayticsEvent); // first logged server side with the initial joke and then client side every time joke.value changes
   });
 
   return (
     <>
       <div class="jokeApp">
         <h1>Jokes</h1>
+        {/* display the joke setup and punchline based on the reactive joke.value */}
         <p>{joke.value.setup}</p>
         <p>{joke.value.punchline}</p>
 
